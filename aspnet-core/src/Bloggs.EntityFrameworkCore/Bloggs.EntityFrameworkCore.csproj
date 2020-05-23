@@ -24,6 +24,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Bloggs.Domain\Bloggs.Domain.csproj" />
     <ProjectReference Include="..\Bloggs.Core\Bloggs.Core.csproj" />
   </ItemGroup>
 </Project>
