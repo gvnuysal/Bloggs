@@ -3,6 +3,7 @@ using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Domain.Repositories;
 using AutoMapper;
+using AutoMapper.Configuration.Conventions;
 using Bloggs.Authorization.Roles;
 using Bloggs.Categories.Dto;
 using Bloggs.Domain.Entities;
@@ -26,11 +27,21 @@ namespace Bloggs.Categories
             _repository = repository;
         }
 
-        public async Task<ListResultDto<CategoryDto>> GetAll(CategoryDto input)
+        public async Task<CategoryDto> CreateCategory(CreateCategoryDto input)
+        {
+            var category = ObjectMapper.Map<Category>(input);
+            await _repository.InsertAsync(category);
+           
+            return ObjectMapper.Map<CategoryDto>(category);
+        }
+
+        public async Task<List<CategoryDto>> GetAll(CategoryDto input)
         {
             var categories = await _repository.GetAll().ToListAsync();
 
-            return new ListResultDto<CategoryDto>(ObjectMapper.Map<List<CategoryDto>>(categories));
+            var result= ObjectMapper.Map<List<CategoryDto>>(categories);
+
+            return result;
         }
     }
 }

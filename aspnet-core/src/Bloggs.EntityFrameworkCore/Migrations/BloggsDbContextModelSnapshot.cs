@@ -1525,6 +1525,9 @@ namespace Bloggs.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("CategoryId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("Contents")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1561,7 +1564,7 @@ namespace Bloggs.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId1");
 
                     b.ToTable("Articles");
                 });
@@ -1937,9 +1940,9 @@ namespace Bloggs.Migrations
 
             modelBuilder.Entity("Bloggs.Domain.Entities.Category", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreationTime")
@@ -2358,9 +2361,7 @@ namespace Bloggs.Migrations
 
                     b.HasOne("Bloggs.Domain.Entities.Category", "Category")
                         .WithMany("Articles")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId1");
                 });
 
             modelBuilder.Entity("Bloggs.Domain.Entities.ArticleComment", b =>
