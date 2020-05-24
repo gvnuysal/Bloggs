@@ -8,6 +8,7 @@ using Bloggs.Categories.Dto;
 using Bloggs.Domain.Entities;
 using Bloggs.Roles;
 using Bloggs.Roles.Dto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,20 @@ using System.Threading.Tasks;
 
 namespace Bloggs.Categories
 {
-    public class CategoryAppService : AsyncCrudAppService<Category, CategoryDto, long, PagedCategoryResultRequestDto, CategoryDto, CategoryDto, CategoryDto>
+    public class CategoryAppService : ApplicationService, ICategoryAppService
     {
-        public CategoryAppService(IRepository<Category,long> repository):base(repository)
-        {
+        private readonly IRepository<Category,long> _repository;
 
-        }
-        public override async Task<CategoryDto> CreateAsync(CategoryDto input)
+        public CategoryAppService(IRepository<Category,long> repository)
         {
-           return await base.CreateAsync(input);
+            _repository = repository;
         }
 
+        public async Task<ListResultDto<CategoryDto>> GetAll(CategoryDto input)
+        {
+            var categories = await _repository.GetAll().ToListAsync();
+
+            return new ListResultDto<CategoryDto>(ObjectMapper.Map<List<CategoryDto>>(categories));
+        }
     }
 }
