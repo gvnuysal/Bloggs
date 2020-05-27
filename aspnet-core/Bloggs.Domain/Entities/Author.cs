@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.Authorization.Users;
+using Abp.Domain.Entities.Auditing;
 using Bloggs.Authorization.Users;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System;
@@ -12,10 +13,10 @@ namespace Bloggs.Domain.Entities
     {
         [Required]
         public long UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public bool IsActive { get; set; }
 
-        public ICollection<Article> Articles { get; set; }
+        public virtual ICollection<Article> Articles { get; set; }
         public ICollection<AuthorImage> AuthorImages { get; set; }
         public ICollection<AuthorFollow> AuthorFollows { get; set; }
     }
