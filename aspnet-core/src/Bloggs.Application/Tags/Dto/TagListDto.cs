@@ -2,8 +2,8 @@
 
 namespace Bloggs.Tags.Dto
 {
-    public class TagListDto: PagedResultRequestDto
+    public class TagListDto : EntityDto<long>
     {
-        public string Keyword { get; set; }
+        public string Name { get; set; }
     }
 }

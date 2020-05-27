@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Bloggs.Tags
 {
-    public class TagAppService :AsyncCrudAppService<Tag,TagCreateDto,long,TagListDto,TagCreateDto,TagCreateDto>,ITagService
+    public class TagAppService : AsyncCrudAppService<Tag, TagCreateDto, long, PagedTagResultRequestDto, TagCreateDto, TagCreateDto>, ITagAppService
     {
-        public TagAppService(IRepository<Tag,long> repository):base(repository)
+        public TagAppService(IRepository<Tag, long> repository) : base(repository)
         {
 
         }
 
-      
+
     }
 }
