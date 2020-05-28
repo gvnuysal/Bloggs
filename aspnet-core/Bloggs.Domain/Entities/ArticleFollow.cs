@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bloggs.Domain.Entities
 {
-    public class ArticleFollow:FullAuditedEntity<long>
+    public class ArticleFollow : FullAuditedEntity<long>
     {
         [Required]
         public long ArticleId { get; set; }

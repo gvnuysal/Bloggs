@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bloggs.Domain.Entities
 {
-    public class Category:FullAuditedEntity<long>
+    public class Category : FullAuditedEntity<long>
     {
         [Required]
         public string Name { get; set; }
-        
+
     }
 }

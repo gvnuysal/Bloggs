@@ -2,7 +2,10 @@
 using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using Bloggs.ArticleLikes.Dto;
+using Bloggs.Authorization.Users;
 using Bloggs.Domain.Entities;
+using Bloggs.Users.Dto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +20,10 @@ namespace Bloggs.ArticleLikes
         }
         protected override IQueryable<ArticleLike> CreateFilteredQuery(PagedArticleLikeResultRequestDto input)
         {
-            return Repository.GetAll()
+            return Repository.GetAllIncluding(x => x.Article)
+                .Include(x => x.Article.Category)
+                .Include(x => x.Article.Author)
+                .Include(x => x.Article.Author.User)
                 .WhereIf(input.ArticleId > 0, x => x.ArticleId == input.ArticleId);
         }
     }

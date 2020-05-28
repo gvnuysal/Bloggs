@@ -6,10 +6,10 @@ using System.Text;
 
 namespace Bloggs.Domain.Entities
 {
-    public class Image:FullAuditedEntity<long>
+    public class Image : FullAuditedEntity<long>
     {
         [Required]
         public byte[] FileName { get; set; }
-     
+
     }
 }

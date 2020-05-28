@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Bloggs.Domain.Entities
 {
-    public class Tag:FullAuditedEntity<long>
+    public class Tag : FullAuditedEntity<long>
     {
         [Required]
         public string Name { get; set; }

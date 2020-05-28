@@ -56,7 +56,7 @@ namespace Bloggs.Authors
         }
         protected override IQueryable<Author> CreateFilteredQuery(PagedAuthorResultRequestDto input)
         {
-            return Repository.GetAll()
+            return Repository.GetAllIncluding(x => x.User)
                 .WhereIf(input.UserId > 0, x => x.UserId == input.UserId);
         }
     }
