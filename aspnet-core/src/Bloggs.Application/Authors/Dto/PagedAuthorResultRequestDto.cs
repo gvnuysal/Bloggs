@@ -5,6 +5,6 @@ namespace Bloggs.Authors.Dto
     public class PagedAuthorResultRequestDto : PagedResultRequestDto
     {
        
-        public string Keyword { get; set; }
+        public long UserId { get; set; }
     }
 }

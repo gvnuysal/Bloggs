@@ -7,6 +7,6 @@ namespace Bloggs.ArticleLikes.Dto
 {
     public class PagedArticleLikeResultRequestDto : PagedResultRequestDto
     {
-        public string Keyword { get; set; }
+        public long ArticleId { get; set; }
     }
 }

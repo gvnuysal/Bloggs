@@ -7,6 +7,6 @@ namespace Bloggs.ArticleComments.Dto
 {
     public class PagedArticleFollowResultRequestDto : PagedResultRequestDto
     {
-        public string Keyword { get; set; }
+        public long ArticleId { get; set; }
     }
 }

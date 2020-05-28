@@ -1,9 +1,12 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
+using Abp.Extensions;
+using Abp.Linq.Extensions;
 using Bloggs.ArticleComments.Dto;
 using Bloggs.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +17,13 @@ namespace Bloggs.ArticleComments
         public ArticleCommentAppService(IRepository<ArticleComment, long> repository) : base(repository)
         {
 
+        }
+        protected override IQueryable<ArticleComment> CreateFilteredQuery(PagedArticleCommentResultRequestDto input)
+        {
+            return Repository.GetAll()
+                .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.Comment.ToLower().Contains(input.Keyword.Trim().ToLower()))
+                .WhereIf(input.ArticleId > 0, x => x.ArticleId == input.ArticleId)
+                .Where(x => x.IsAccept);
         }
     }
 }

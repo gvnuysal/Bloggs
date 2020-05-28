@@ -7,6 +7,7 @@ namespace Bloggs.ArticleTags.Dto
 {
     public class PagedArticleTagResultRequestDto : PagedResultRequestDto
     {
-        public string Keyword { get; set; }
+        public long ArticleId { get; set; }
+        public long TagId { get; set; }
     }
 }

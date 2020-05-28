@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
+using Abp.Linq.Extensions;
 using Abp.UI;
 using Bloggs.Authors.Dto;
 using Bloggs.Domain.Entities;
@@ -21,7 +22,7 @@ namespace Bloggs.Authors
         }
         public override Task<PagedResultDto<AuthorDto>> GetAllAsync(PagedAuthorResultRequestDto input)
         {
-           
+
             return base.GetAllAsync(input);
         }
         public override async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
@@ -30,7 +31,7 @@ namespace Bloggs.Authors
 
             var isAllReadyAuthor = GetAuthorDtoByUserId(userId);
 
-            if (isAllReadyAuthor != null)
+            if(isAllReadyAuthor != null)
             {
                 throw new UserFriendlyException(L("AllReadyAuthor"));
             }
@@ -54,7 +55,10 @@ namespace Bloggs.Authors
 
             return getAllAuthorByUserId;
         }
-
-       
+        protected override IQueryable<Author> CreateFilteredQuery(PagedAuthorResultRequestDto input)
+        {
+            return Repository.GetAll()
+                .WhereIf(input.UserId > 0, x => x.UserId == input.UserId);
+        }
     }
 }
