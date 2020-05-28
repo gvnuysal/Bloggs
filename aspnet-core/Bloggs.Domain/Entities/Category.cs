@@ -9,6 +9,6 @@ namespace Bloggs.Domain.Entities
     {
         [Required]
         public string Name { get; set; }
-        public ICollection<Article>  Articles { get; set; }
+        
     }
 }

@@ -17,14 +17,11 @@ namespace Bloggs.Domain.Entities
         public string Contents { get; set; }
         [Required]
         public long AuthorId { get; set; }
-      
+        public Author Author { get; set; }
+
         [Required]
         public long CategoryId { get; set; }
         public Category Category { get; set; }
-
-        public ICollection<ArticleImage> ArticleImages { get; set; }
-        public ICollection<ArticleTag> ArticleTags { get; set; }
-        public ICollection<ArticleComment> ArticleComments { get; set; }
 
     }
 }

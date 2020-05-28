@@ -22,7 +22,6 @@ namespace Bloggs.Authors
         }
         public override Task<PagedResultDto<AuthorDto>> GetAllAsync(PagedAuthorResultRequestDto input)
         {
-
             return base.GetAllAsync(input);
         }
         public override async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
