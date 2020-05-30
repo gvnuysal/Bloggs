@@ -1,8 +1,4 @@
-﻿using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Abp.Domain.Entities.Auditing;
 using System.ComponentModel.DataAnnotations;
 
 

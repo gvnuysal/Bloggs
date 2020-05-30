@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bloggs.Migrations
 {
     [DbContext(typeof(BloggsDbContext))]
-    [Migration("20200524200623_Deneme")]
-    partial class Deneme
+    [Migration("20200530115918_addMigration")]
+    partial class addMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1527,9 +1527,6 @@ namespace Bloggs.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("CategoryId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Contents")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1566,7 +1563,7 @@ namespace Bloggs.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("CategoryId1");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Articles");
                 });
@@ -1582,6 +1579,7 @@ namespace Bloggs.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
@@ -1942,9 +1940,9 @@ namespace Bloggs.Migrations
 
             modelBuilder.Entity("Bloggs.Domain.Entities.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreationTime")
@@ -1997,6 +1995,7 @@ namespace Bloggs.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("FileName")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -2082,6 +2081,7 @@ namespace Bloggs.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("UserId")
@@ -2356,20 +2356,22 @@ namespace Bloggs.Migrations
             modelBuilder.Entity("Bloggs.Domain.Entities.Article", b =>
                 {
                     b.HasOne("Bloggs.Domain.Entities.Author", "Author")
-                        .WithMany("Articles")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Bloggs.Domain.Entities.Category", "Category")
-                        .WithMany("Articles")
-                        .HasForeignKey("CategoryId1");
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Bloggs.Domain.Entities.ArticleComment", b =>
                 {
                     b.HasOne("Bloggs.Domain.Entities.Article", "Article")
-                        .WithMany("ArticleComments")
+                        .WithMany()
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2387,13 +2389,13 @@ namespace Bloggs.Migrations
             modelBuilder.Entity("Bloggs.Domain.Entities.ArticleImage", b =>
                 {
                     b.HasOne("Bloggs.Domain.Entities.Article", "Article")
-                        .WithMany("ArticleImages")
+                        .WithMany()
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Bloggs.Domain.Entities.Image", "Image")
-                        .WithMany("ArticleImages")
+                        .WithMany()
                         .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2411,7 +2413,7 @@ namespace Bloggs.Migrations
             modelBuilder.Entity("Bloggs.Domain.Entities.ArticleTag", b =>
                 {
                     b.HasOne("Bloggs.Domain.Entities.Article", "Article")
-                        .WithMany("ArticleTags")
+                        .WithMany()
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2444,7 +2446,7 @@ namespace Bloggs.Migrations
             modelBuilder.Entity("Bloggs.Domain.Entities.AuthorFollow", b =>
                 {
                     b.HasOne("Bloggs.Domain.Entities.Author", "Author")
-                        .WithMany("AuthorFollows")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2453,13 +2455,13 @@ namespace Bloggs.Migrations
             modelBuilder.Entity("Bloggs.Domain.Entities.AuthorImage", b =>
                 {
                     b.HasOne("Bloggs.Domain.Entities.Author", "Author")
-                        .WithMany("AuthorImages")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Bloggs.Domain.Entities.Image", "Image")
-                        .WithMany("AuthorImages")
+                        .WithMany()
                         .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

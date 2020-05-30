@@ -1,4 +1,5 @@
 ﻿using Abp.AutoMapper;
+using Abp.Domain.Uow;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Bloggs.Authorization;
@@ -13,6 +14,7 @@ namespace Bloggs
         public override void PreInitialize()
         {
             Configuration.Authorization.Providers.Add<BloggsAuthorizationProvider>();
+            Configuration.UnitOfWork.OverrideFilter(AbpDataFilters.SoftDelete, false);
         }
 
         public override void Initialize()

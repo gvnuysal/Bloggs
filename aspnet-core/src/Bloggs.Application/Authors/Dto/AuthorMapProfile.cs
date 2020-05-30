@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+﻿using Abp.Application.Services.Dto;
+using AutoMapper;
 using Bloggs.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace Bloggs.Authors.Dto
 {
-    public class AuthorMapProfile:Profile
+    public class AuthorMapProfile : Profile
     {
         public AuthorMapProfile()
         {
@@ -15,6 +17,9 @@ namespace Bloggs.Authors.Dto
 
             CreateMap<AuthorDto, CreateAuthorDto>();
             CreateMap<CreateAuthorDto, AuthorDto>();
+
+            CreateMap<Author, PagedResultDto<AuthorDto>>();
+            CreateMap<PagedResultDto<AuthorDto>, Author>();
         }
     }
 }

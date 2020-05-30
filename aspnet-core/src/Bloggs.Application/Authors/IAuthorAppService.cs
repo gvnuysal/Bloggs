@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bloggs.Authors
 {
-    public interface IAuthorAppService:IAsyncCrudAppService<AuthorDto,long,PagedAuthorResultRequestDto,CreateAuthorDto,CreateAuthorDto>
+    public interface IAuthorAppService:IAsyncCrudAppService<AuthorDto,long,PagedAuthorResultRequestDto,CreateAuthorDto, UpdateAuthorDto>
     {
         Author GetAuthorDtoByUserId(long? userId);
+
       
     }
 }

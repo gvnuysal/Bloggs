@@ -1,18 +1,20 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Abp.Collections.Extensions;
 using Abp.Domain.Repositories;
-using Abp.Linq.Extensions;
+using Abp.Extensions;
 using Abp.UI;
 using Bloggs.Authors.Dto;
 using Bloggs.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bloggs.Authors
 {
-    public class AuthorAppService : AsyncCrudAppService<Author, AuthorDto, long, PagedAuthorResultRequestDto, CreateAuthorDto, CreateAuthorDto>, IAuthorAppService
+    public class AuthorAppService : AsyncCrudAppService<Author, AuthorDto, long, PagedAuthorResultRequestDto, CreateAuthorDto, UpdateAuthorDto>, IAuthorAppService
     {
         private readonly IRepository<Author, long> _repository;
         public AuthorAppService(IRepository<Author, long> repository) : base(repository)
@@ -20,17 +22,14 @@ namespace Bloggs.Authors
             _repository = repository;
             LocalizationSourceName = BloggsConsts.LocalizationSourceName;
         }
-        public override Task<PagedResultDto<AuthorDto>> GetAllAsync(PagedAuthorResultRequestDto input)
-        {
-            return base.GetAllAsync(input);
-        }
+
         public override async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
         {
             long? userId = AbpSession.UserId;
 
             var isAllReadyAuthor = GetAuthorDtoByUserId(userId);
 
-            if(isAllReadyAuthor != null)
+            if (isAllReadyAuthor != null)
             {
                 throw new UserFriendlyException(L("AllReadyAuthor"));
             }
@@ -48,16 +47,26 @@ namespace Bloggs.Authors
             return returnAutorDto;
         }
 
+
+
+
         public Author GetAuthorDtoByUserId(long? userId)
         {
             var getAllAuthorByUserId = _repository.GetAll().Where(x => x.UserId == userId).FirstOrDefault(); ;
 
             return getAllAuthorByUserId;
         }
-        protected override IQueryable<Author> CreateFilteredQuery(PagedAuthorResultRequestDto input)
+        public override Task<PagedResultDto<AuthorDto>> GetAllAsync(PagedAuthorResultRequestDto input)
         {
-            return Repository.GetAllIncluding(x => x.User)
-                .WhereIf(input.UserId > 0, x => x.UserId == input.UserId);
+            var authors = _repository.GetAll()
+                                     .Include(x => x.User)
+                                     .WhereIf(!input.FullName.IsNullOrWhiteSpace(), x => x.User.FullName.ToLower().Contains(input.FullName.Trim().ToLower()))
+                                     .WhereIf(input.UserId > 0, x => x.UserId.ToString() == input.UserId.ToString().Trim())
+                                     .ToList();
+
+            var value = ObjectMapper.Map<List<AuthorDto>>(authors);
+
+            return Task.FromResult(new PagedResultDto<AuthorDto> { Items = value, TotalCount = value.Count() });
         }
     }
 }

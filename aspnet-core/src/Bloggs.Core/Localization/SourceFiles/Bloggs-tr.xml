@@ -102,5 +102,7 @@
     <text name="NewPassword">Yeni şifre</text>
     <text name="ConfirmNewPassword">Yeni şifreyi doğrula</text>
     <text name="AllReadyAuthor" value="Bu Kullanıcı zaten yazar olarak kayıtlıdır."></text>
+    <text name="UsingCategory" value="Kategori,makale tablosunda kullanılıyor.Silinemez!"></text>
+    <text name="Categories">Kategoriler</text>
   </texts>
 </localizationDictionary>

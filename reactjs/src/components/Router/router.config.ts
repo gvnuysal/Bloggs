@@ -93,6 +93,16 @@ export const appRouters: any = [
     showInMenu: false,
     component: LoadableComponent(() => import('../../scenes/Exception')),
   },
+  {
+    path:'/categories',
+    permission:'',
+    title:'Kategori',
+    name:'category',
+    icon: 'info-circle',
+    showInMenu: true,
+    component:LoadableComponent(()=>import('../../scenes/Category')),
+
+  }
 ];
 
 export const routers = [...userRouter, ...appRouters];

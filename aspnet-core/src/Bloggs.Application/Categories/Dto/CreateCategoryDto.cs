@@ -7,5 +7,8 @@ namespace Bloggs.Categories.Dto
     {
         [Required]
         public string Name { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

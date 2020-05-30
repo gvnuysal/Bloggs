@@ -1,6 +1,4 @@
 ﻿using Abp.Domain.Entities.Auditing;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Bloggs.Domain.Entities
@@ -9,6 +7,8 @@ namespace Bloggs.Domain.Entities
     {
         [Required]
         public string Name { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
 
     }
 }
