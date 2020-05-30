@@ -97,7 +97,7 @@ export const appRouters: any = [
     path:'/categories',
     permission:'',
     title:'Kategori',
-    name:'category',
+    name:'categories',
     icon: 'info-circle',
     showInMenu: true,
     component:LoadableComponent(()=>import('../../scenes/Category')),

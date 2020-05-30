@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import CategoryStore from '../../stores/categoryStore';
 import { FormComponentProps } from 'antd/lib/form';
 
@@ -6,8 +8,7 @@ import AppComponentBase from '../../components/AppComponentBase';
 import { observer, inject } from 'mobx-react';
 import Stores from '../../stores/storeIdentifier';
 import { L } from '../../lib/abpUtility';
-import { Dropdown, Menu, Button, Card, Col, Row, Table } from 'antd';
-import Search from 'antd/lib/input/Search';
+import { Dropdown, Menu, Button, Card, Col, Row, Table, Input } from 'antd';
 
 export interface ICategoryProps extends FormComponentProps {
   categoryStore: CategoryStore;
@@ -19,10 +20,11 @@ export interface ICategoryState {
   categoryId: number;
   filter: string;
 }
-// const confirm = Modal.confirm;
-// const Search = Input.Search;
 
-@inject(Stores.CategorySore)
+//const confirm = Modal.confirm;
+const Search = Input.Search;
+
+@inject(Stores.CategoryStore)
 @observer
 class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
   formRef: any;
@@ -51,10 +53,10 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
   handleSearch = (value: string) => {
     this.setState({ filter: value }, async () => await this.getAll());
   };
-  public render() {
+   render() {
     const { categories } = this.props.categoryStore;
     const columns = [
-      { title: 'Kategori Adı', dataIndex: 'name', key: 'name', width: 150, render: (text: string) => <div>{text}</div> },
+      { title: 'Kategori Adı', dataIndex: 'name', key: 'name', width: 150 },
       {
         title: L('Actions'),
         width: 150,
