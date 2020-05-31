@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Bloggs.Tags.Dto
 {
     [AutoMap(typeof(Tag))]
-    public class TagCreateDto : EntityDto<long>
+    public class CreateTagDto : EntityDto<long>
     {
         [Required]
         public string Name { get; set; }

@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using Bloggs.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bloggs.ArticleViews.Dto
 {
@@ -10,9 +7,6 @@ namespace Bloggs.ArticleViews.Dto
     {
         public ArticleViewMapProfile()
         {
-            CreateMap<ArticleView, CreateArticleViewDto>();
-            CreateMap<CreateArticleViewDto, ArticleView>();
-
             CreateMap<CreateArticleViewDto, ArticleViewDto>();
             CreateMap<ArticleViewDto, CreateArticleViewDto>();
 
