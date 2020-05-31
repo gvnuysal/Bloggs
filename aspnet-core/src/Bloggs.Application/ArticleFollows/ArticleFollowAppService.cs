@@ -12,11 +12,9 @@ using System.Threading.Tasks;
 
 namespace Bloggs.ArticleFollows
 {
-<<<<<<< HEAD
-    public class ArticleFollowAppService : AsyncCrudAppService<ArticleFollow, ArticleFollowDto, long, PagedArticleFollowResultRequestDto, CreateArticleFollowDto, CreateArticleFollowDto>,IArticleFollowAppService
-=======
+
     public class ArticleFollowAppService : AsyncCrudAppService<ArticleFollow, ArticleFollowDto, long, PagedArticleFollowResultRequestDto, CreateArticleFollowDto, CreateArticleFollowDto>, IArticleFollowAppService
->>>>>>> 2b6b082f2f3d2e91240e1d7651783126af00ed5b
+
     {
         private readonly IRepository<ArticleFollow, long> _repository;
         public ArticleFollowAppService(IRepository<ArticleFollow, long> repository) : base(repository)
