@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 namespace Bloggs.Categories
 {
     //[AbpAuthorize(PermissionNames.Pages_Categories)]
-    public class CategoryAppService : AsyncCrudAppService<Category,CategoryDto,long,PagedCategoryResultRequestDto,CreateCategoryDto,CreateCategoryDto,CategoryDto,DeleteCategoryDto>, ICategoryAppService
+    public class CategoryAppService : AsyncCrudAppService<Category, CategoryDto, long, PagedCategoryResultRequestDto, CreateCategoryDto, CreateCategoryDto, CategoryDto, DeleteCategoryDto>, ICategoryAppService
     {
-        private readonly IRepository<Article,long> _articleRepository;
-        public CategoryAppService(IRepository<Category,long> repository, IRepository<Article, long> articleRepository) :base(repository)
+        private readonly IRepository<Article, long> _articleRepository;
+        public CategoryAppService(IRepository<Category, long> repository, IRepository<Article, long> articleRepository) : base(repository)
         {
             LocalizationSourceName = BloggsConsts.LocalizationSourceName;
             _articleRepository = articleRepository;
@@ -23,24 +23,23 @@ namespace Bloggs.Categories
         protected override IQueryable<Category> CreateFilteredQuery(PagedCategoryResultRequestDto input)
         {
             return Repository.GetAll()
-                             .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.Name.ToLower().Contains(input.Keyword.Trim().ToLower()))
+                             .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.Name.ToLower().Contains(input.Keyword.Trim().ToLower()) ||
+                                                                                x.Description.ToLower().Contains(input.Keyword.Trim().ToLower()))
                              .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive)
-                          //   .WhereIf(!input.IsActive.HasValue, x => x.IsActive == true)
-                             .WhereIf(!input.IsDeleted.HasValue, x => x.IsDeleted == false)
-                             .WhereIf(input.IsDeleted.HasValue,x=>x.IsDeleted==input.IsDeleted);
+                             .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted);
         }
         public override async Task DeleteAsync(DeleteCategoryDto input)
         {
-            var getArticleCountByCategoryId = await _articleRepository.GetAllListAsync(x=>x.IsActive&&!x.IsDeleted);
+            var getArticleCountByCategoryId = await _articleRepository.GetAllListAsync(x => x.IsActive && !x.IsDeleted && x.CategoryId == input.Id);
             if (getArticleCountByCategoryId.Count() > 0)
-                throw new UserFriendlyException(L("UsingCategory"));
+                throw new UserFriendlyException(L("ErrorTitle"), L("UsingCategory"));
 
-             await base.DeleteAsync(input);
+            await base.DeleteAsync(input);
         }
 
         public async Task<GetCategoryUpdateOutput> GetCategoryForUpdate(EntityDto input)
         {
-            var category =await Repository.GetAsync(input.Id);
+            var category = await Repository.GetAsync(input.Id);
             var updateCategoryDto = ObjectMapper.Map<UpdateCategoryDto>(category);
 
             return new GetCategoryUpdateOutput { Category = updateCategoryDto };

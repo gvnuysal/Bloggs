@@ -45,7 +45,7 @@
     <text name="RegisterFormUserNameInvalidMessage">Please don't enter an email address for username.</text>
     <text name="DatabaseConnectionString" value="Database connection string" />
     <text name="Users" value="Users" />
-    <text name="IsActive" value="Is active" />
+    <text name="IsActive" value="Is active?" />
     <text name="FullName" value="Full name" />
     <text name="CreateNewUser" value="Create new user" />
     <text name="Yes" value="Yes" />
@@ -121,7 +121,9 @@
     <text name="Categories">Categories</text>
     <text name="CategoryName">Category Name</text>
     <text name="CategoryNameFieldIsRequired">Category name field is required.</text>
-    <text name="CategoryDescription">Categories description.</text>
-
+    <text name="CategoryDescription">Description.</text>
+    <text name="DoYouWantDelete">Do you Want to delete these items?</text>
+    <text name="ErrorTitle">Error!</text>
+    <text name="IsDeleted">Deleted?</text>
   </texts>
 </localizationDictionary>

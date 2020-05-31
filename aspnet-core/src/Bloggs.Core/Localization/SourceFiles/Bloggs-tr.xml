@@ -44,7 +44,7 @@
     <text name="RegisterFormUserNameInvalidMessage">Lütfen kullanıcı adı alanına e-posta adresi girmeyin.</text>
     <text name="DatabaseConnectionString" value="Veritabanı bağlantı cümlesi" />
     <text name="Users" value="Kullanıcılar" />
-    <text name="IsActive" value="Etkin mi" />
+    <text name="IsActive" value="Etkin mi?" />
     <text name="FullName" value="Tam adı" />
     <text name="CreateNewUser" value="Yeni kullanıcı oluştur" />
     <text name="Yes" value="Evet" />
@@ -107,6 +107,9 @@
     <text name="Categories">Kategoriler</text>
     <text name="CategoryName">Kategori Adı</text>
     <text name="CategoryNameFieldIsRequired">Kategori adı boş geçilemez.</text>
-    <text name="CategoryDescription">Kategori Açıklaması</text>
+    <text name="CategoryDescription">Açıklama</text>
+    <text name="DoYouWantDelete">Silmek istediğinizden emin misiniz?</text>
+    <text name="ErrorTitle">Bu işlem yapılamaz!</text>
+    <text name="IsDeleted">Silinen?</text>
   </texts>
 </localizationDictionary>

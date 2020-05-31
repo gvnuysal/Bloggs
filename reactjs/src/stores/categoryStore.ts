@@ -38,6 +38,11 @@ class CategoryStore{
     @action async update(updateCategoryInput:UpdateCategoryInput){
         await categoryService.update(updateCategoryInput);
     }
+    @action  async delete(entityDto: EntityDto) {
+
+      await categoryService.delete(entityDto);
+      this.categories.items = this.categories.items.filter((x: GetAllCategoryOutput) => x.id !== entityDto.id);
+    }
 }
 
 export default CategoryStore;
