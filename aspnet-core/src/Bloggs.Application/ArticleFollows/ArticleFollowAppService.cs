@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Bloggs.ArticleFollows
 {
-    public class ArticleFollowAppService : AsyncCrudAppService<ArticleFollow, ArticleFollowDto, long, PagedArticleFollowResultRequestDto, CreateArticleFollowDto, CreateArticleFollowDto>
+    public class ArticleFollowAppService : AsyncCrudAppService<ArticleFollow, ArticleFollowDto, long, PagedArticleFollowResultRequestDto, CreateArticleFollowDto, CreateArticleFollowDto>,IArticleFollowAppService
     {
         public ArticleFollowAppService(IRepository<ArticleFollow, long> repository) : base(repository)
         {

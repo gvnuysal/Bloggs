@@ -63,6 +63,7 @@
     <text name="DisplayName">Görünen ad</text>
     <text name="Edit">Düzenle</text>
     <text name="Delete">Sil</text>
+      <text name="Filter">Filtre</text>
     <text name="CreateNewRole">Yeni rol oluştur</text>
     <text name="RoleName">Rol adı</text>
     <text name="Actions">İşlemler</text>
@@ -104,5 +105,8 @@
     <text name="AllReadyAuthor" value="Bu Kullanıcı zaten yazar olarak kayıtlıdır."></text>
     <text name="UsingCategory" value="Kategori,makale tablosunda kullanılıyor.Silinemez!"></text>
     <text name="Categories">Kategoriler</text>
+    <text name="CategoryName">Kategori Adı</text>
+    <text name="CategoryNameFieldIsRequired">Kategori adı boş geçilemez.</text>
+    <text name="CategoryDescription">Kategori Açıklaması</text>
   </texts>
 </localizationDictionary>

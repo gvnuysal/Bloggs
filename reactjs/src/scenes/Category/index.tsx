@@ -9,7 +9,8 @@ import { observer, inject } from 'mobx-react';
 import Stores from '../../stores/storeIdentifier';
 import { L } from '../../lib/abpUtility';
 import { Dropdown, Menu, Button, Card, Col, Row, Table, Input } from 'antd';
-
+import { EntityDto } from '../../services/dto/entityDto';
+import CreateOrUpdateCategory from './components/createOrUpdateCategory';
 export interface ICategoryProps extends FormComponentProps {
   categoryStore: CategoryStore;
 }
@@ -50,13 +51,46 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
       modalVisible: !this.state.modalVisible,
     });
   };
+  async createOrUpdateModalOpen(entityDto: EntityDto) {
+    if (entityDto.id === 0) {
+      await this.props.categoryStore.createCategory();
+    } else {
+      await this.props.categoryStore.getCategoryForEdit(entityDto);
+    }
+    this.setState({ categoryId: entityDto.id });
+    this.Modal();
+    this.formRef.props.form.setFieldsValue({
+       ...this.props.categoryStore.categoryEdit.category
+    });
+  }
   handleSearch = (value: string) => {
     this.setState({ filter: value }, async () => await this.getAll());
   };
-   render() {
+  saveFormRef = (formRef: any) => {
+    this.formRef = formRef;
+  };
+  handleCreate = () => {
+    const form = this.formRef.props.form;
+    form.validateFields(async (err: any, values: any) => {
+      if (err) {
+        return;
+      } else {
+        if (this.state.categoryId === 0) {
+          await this.props.categoryStore.create(values);
+        } else {
+          await this.props.categoryStore.update({ id: this.state.categoryId, ...values });
+        }
+      }
+
+      await this.getAll();
+      this.setState({ modalVisible: false });
+      form.resetFields();
+    });
+  };
+  render() {
     const { categories } = this.props.categoryStore;
     const columns = [
-      { title: 'Kategori Adı', dataIndex: 'name', key: 'name', width: 150 },
+      { title: L('CategoryName'), dataIndex: 'name', key: 'name', width: 150 },
       {
         title: L('Actions'),
         width: 150,
@@ -66,7 +100,7 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
               trigger={['click']}
               overlay={
                 <Menu>
-                  <Menu.Item onClick={() => {}}>{L('Edit')}</Menu.Item>
+                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{L('Edit')}</Menu.Item>
                   <Menu.Item onClick={() => {}}>{L('Delete')}</Menu.Item>
                 </Menu>
               }
@@ -130,6 +164,16 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
             />
           </Col>
         </Row>
+        <CreateOrUpdateCategory
+          wrappedComponentRef={this.saveFormRef}
+          visible={this.state.modalVisible}
+          onCancel={() => {
+            this.setState({ modalVisible: false });
+          }}
+          modalType={this.state.categoryId === 0 ? 'edit' : 'create'}
+          onOk={this.handleCreate}
+          categoryStore={this.props.categoryStore}
+        />
       </Card>
     );
   }

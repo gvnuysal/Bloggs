@@ -1,10 +1,9 @@
 ﻿using Abp.Application.Services;
-using Abp.Authorization;
+using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.UI;
-using Bloggs.Authorization;
 using Bloggs.Categories.Dto;
 using Bloggs.Domain.Entities;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace Bloggs.Categories
             return Repository.GetAll()
                              .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.Name.ToLower().Contains(input.Keyword.Trim().ToLower()))
                              .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive)
-                             .WhereIf(!input.IsActive.HasValue, x => x.IsActive == true)
+                          //   .WhereIf(!input.IsActive.HasValue, x => x.IsActive == true)
                              .WhereIf(!input.IsDeleted.HasValue, x => x.IsDeleted == false)
                              .WhereIf(input.IsDeleted.HasValue,x=>x.IsDeleted==input.IsDeleted);
         }
@@ -38,6 +37,13 @@ namespace Bloggs.Categories
 
              await base.DeleteAsync(input);
         }
-       
+
+        public async Task<GetCategoryUpdateOutput> GetCategoryForUpdate(EntityDto input)
+        {
+            var category =await Repository.GetAsync(input.Id);
+            var updateCategoryDto = ObjectMapper.Map<UpdateCategoryDto>(category);
+
+            return new GetCategoryUpdateOutput { Category = updateCategoryDto };
+        }
     }
 }

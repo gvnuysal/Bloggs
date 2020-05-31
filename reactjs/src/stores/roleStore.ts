@@ -26,7 +26,7 @@ class RoleStore {
     this.roleEdit = {
       grantedPermissionNames: [],
       role: {
-        name: '',
+       name:'',
         displayName: '',
         description: '',
         id: 0,

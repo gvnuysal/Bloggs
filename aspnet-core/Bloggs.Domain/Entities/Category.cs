@@ -9,6 +9,8 @@ namespace Bloggs.Domain.Entities
         public string Name { get; set; }
         [Required]
         public bool IsActive { get; set; }
+        [MaxLength(500)]
+        public string Description { get; set; }
 
     }
 }
