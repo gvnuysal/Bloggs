@@ -1,30 +1,36 @@
 ﻿using Abp.Application.Services;
+using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using Bloggs.ArticleTags.Dto;
 using Bloggs.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Bloggs.ArticleTags
 {
-    public class ArticleTagAppService : AsyncCrudAppService<ArticleTag, ArticleTagDto, long, PagedArticleTagResultRequestDto, CreateArticleTagDto, CreateArticleTagDto>
+    public class ArticleTagAppService : AsyncCrudAppService<ArticleTag, ArticleTagDto, long, PagedArticleTagResultRequestDto, CreateArticleTagDto, UpdateArticleTagDto>
     {
+        private readonly IRepository<ArticleTag, long> _repository;
         public ArticleTagAppService(IRepository<ArticleTag, long> repository) : base(repository)
         {
+            _repository = repository;
         }
-        protected override IQueryable<ArticleTag> CreateFilteredQuery(PagedArticleTagResultRequestDto input)
+        public override Task<PagedResultDto<ArticleTagDto>> GetAllAsync(PagedArticleTagResultRequestDto input)
         {
-            return Repository.GetAllIncluding(x => x.Article)
-                .Include(x => x.Tag)
-                .Include(x => x.Article.Author)
-                .Include(x => x.Article.Category)
-                .Include(x => x.Article.Author.User)
-                .WhereIf(input.ArticleId > 0, x => x.ArticleId == input.ArticleId)
-                .WhereIf(input.TagId > 0, x => x.TagId == input.TagId);
+            var articleFollows = _repository.GetAllIncluding(x => x.Article)
+                                     .Include(x => x.Article.Author)
+                                     .Include(x => x.Article.Category)
+                                     .Include(x => x.Article.Author.User)
+                                     .WhereIf(input.ArticleId > 0, x => x.ArticleId == input.ArticleId)
+                                     .WhereIf(!input.IsDeleted.HasValue, x => x.IsDeleted == false)
+                                     .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted).ToList();
+
+            var value = ObjectMapper.Map<List<ArticleTagDto>>(articleFollows);
+
+            return Task.FromResult(new PagedResultDto<ArticleTagDto> { Items = value, TotalCount = value.Count() });
         }
     }
 }

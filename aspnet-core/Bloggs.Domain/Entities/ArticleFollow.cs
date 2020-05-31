@@ -7,6 +7,6 @@ namespace Bloggs.Domain.Entities
     {
         [Required]
         public long ArticleId { get; set; }
-        public Article Article { get; set; }
+        public virtual Article Article { get; set; }
     }
 }

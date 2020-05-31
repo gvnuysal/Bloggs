@@ -1,11 +1,11 @@
 ﻿using Abp.Application.Services.Dto;
-using System;
-using System.Collections.Generic;
+using Abp.AutoMapper;
+using Bloggs.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Bloggs.ArticleLikes.Dto
 {
+    [AutoMap(typeof(ArticleLike))]
     public class CreateArticleLikeDto : EntityDto<long>
     {
         [Required]

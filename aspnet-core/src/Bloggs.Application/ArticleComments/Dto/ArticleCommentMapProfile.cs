@@ -1,8 +1,6 @@
-﻿using AutoMapper;
+﻿using Abp.Application.Services.Dto;
+using AutoMapper;
 using Bloggs.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bloggs.ArticleComments.Dto
 {
@@ -12,9 +10,6 @@ namespace Bloggs.ArticleComments.Dto
         {
             CreateMap<ArticleCommentDto, ArticleComment>();
             CreateMap<ArticleComment, ArticleCommentDto>();
-
-            CreateMap<CreateArticleCommentDto, ArticleComment>();
-            CreateMap<ArticleComment, CreateArticleCommentDto>();
 
             CreateMap<CreateArticleCommentDto, ArticleCommentDto>();
             CreateMap<ArticleCommentDto, CreateArticleCommentDto>();

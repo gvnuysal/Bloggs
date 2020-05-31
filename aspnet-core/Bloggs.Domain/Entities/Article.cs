@@ -16,11 +16,11 @@ namespace Bloggs.Domain.Entities
 
         [Required]
         public long AuthorId { get; set; }
-        public Author Author { get; set; }
+        public virtual Author Author { get; set; }
 
         [Required]
         public long CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Abp.Application.Services.Dto;
-using System;
-using System.Collections.Generic;
+using Abp.AutoMapper;
+using Bloggs.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace Bloggs.ArticleComments.Dto
+namespace Bloggs.ArticleFollows.Dto
 {
+    [AutoMap(typeof(ArticleFollow))]
     public class CreateArticleFollowDto : EntityDto<long>
     {
         [Required]

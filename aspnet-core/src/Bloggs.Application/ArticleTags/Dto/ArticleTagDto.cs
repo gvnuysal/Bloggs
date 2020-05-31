@@ -1,9 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
-using Bloggs.Domain.Entities;
-using System;
-using System.Collections.Generic;
+using Bloggs.Articles.Dto;
+using Bloggs.Tags.Dto;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Bloggs.ArticleTags.Dto
 {
@@ -11,10 +9,11 @@ namespace Bloggs.ArticleTags.Dto
     {
         [Required]
         public long ArticleId { get; set; }
-        public Article Article { get; set; }
 
         [Required]
         public long TagId { get; set; }
-        public Tag Tag { get; set; }
+
+        public ArticleDto Article { get; set; }
+        public TagDto Tag { get; set; }
     }
 }

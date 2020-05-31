@@ -6,11 +6,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Bloggs.ArticleTags.Dto
 {
     [AutoMap(typeof(ArticleTag))]
-    public class CreateArticleTagDto : EntityDto<long>
+    public class UpdateArticleTagDto : EntityDto<long>
     {
-        [Required]
-        public long ArticleId { get; set; }
-
         [Required]
         public long TagId { get; set; }
     }

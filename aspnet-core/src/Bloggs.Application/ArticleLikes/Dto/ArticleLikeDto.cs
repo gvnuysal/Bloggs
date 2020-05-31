@@ -1,9 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
-using Bloggs.Domain.Entities;
-using System;
-using System.Collections.Generic;
+using Bloggs.Articles.Dto;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Bloggs.ArticleLikes.Dto
 {
@@ -12,6 +9,6 @@ namespace Bloggs.ArticleLikes.Dto
         [Required]
         public long ArticleId { get; set; }
 
-        public Article Article { get; set; }
+        public ArticleDto Article { get; set; }
     }
 }
