@@ -10,8 +10,8 @@ namespace Bloggs.Tags.Dto
             CreateMap<TagDto, Tag>();
             CreateMap<Tag, TagDto>();
 
-            CreateMap<TagDto, TagCreateDto>();
-            CreateMap<TagCreateDto, TagDto>();
+            CreateMap<TagDto, CreateTagDto>();
+            CreateMap<CreateTagDto, TagDto>();
         }
     }
 }
