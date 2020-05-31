@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bloggs.Tags
 {
-    public class TagAppService : AsyncCrudAppService<Tag, TagDto, long, PagedTagResultRequestDto, TagCreateDto, TagCreateDto>, ITagAppService
+    public class TagAppService : AsyncCrudAppService<Tag, TagDto, long, PagedTagResultRequestDto, CreateTagDto, CreateTagDto>, ITagAppService
     {
         private IRepository<Tag, long> _repository;
         public TagAppService(IRepository<Tag, long> repository) : base(repository)
