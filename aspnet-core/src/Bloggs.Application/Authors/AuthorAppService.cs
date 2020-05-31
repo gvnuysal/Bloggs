@@ -29,7 +29,7 @@ namespace Bloggs.Authors
 
             var isAllReadyAuthor = GetAuthorDtoByUserId(userId);
 
-            if (isAllReadyAuthor != null)
+            if(isAllReadyAuthor != null)
             {
                 throw new UserFriendlyException(L("AllReadyAuthor"));
             }
@@ -46,9 +46,6 @@ namespace Bloggs.Authors
 
             return returnAutorDto;
         }
-
-
-
 
         public Author GetAuthorDtoByUserId(long? userId)
         {

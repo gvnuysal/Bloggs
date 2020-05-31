@@ -39,17 +39,5 @@ namespace Bloggs.Articles
 
             return Task.FromResult(new PagedResultDto<ArticleDto> { Items = value, TotalCount = value.Count() });
         }
-
-        //protected override IQueryable<Article> CreateFilteredQuery(PagedArticleResultRequestDto input)
-        //{
-
-        //    return Repository.GetAllIncluding(x => x.Author)
-        //        .Include(x => x.Category)
-        //        .Include(x => x.Author.User)
-        //        .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.Contents.ToLower().Contains(input.Keyword.Trim().ToLower())
-        //        || x.Title.ToLower().Contains(input.Keyword.Trim().ToLower()))
-        //        .WhereIf(input.AuthorId > 0, x => x.AuthorId == input.AuthorId)
-        //        .WhereIf(input.CategoryId > 0, x => x.CategoryId == input.CategoryId);
-        //}
     }
 }

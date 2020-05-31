@@ -1,7 +1,4 @@
 ﻿using Abp.Application.Services.Dto;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bloggs.ArticleTags.Dto
 {
@@ -9,5 +6,6 @@ namespace Bloggs.ArticleTags.Dto
     {
         public long ArticleId { get; set; }
         public long TagId { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 }

@@ -6,14 +6,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Bloggs.ArticleComments.Dto
 {
     [AutoMap(typeof(ArticleComment))]
-    public class CreateArticleCommentDto : EntityDto<long>
+    public class UpdateArticleCommentDto : EntityDto<long>
     {
         [Required]
         public string Comment { get; set; }
-
-        [Required]
-        public long ArticleId { get; set; }
-
-        public bool IsAccept { get; set; }
     }
 }
