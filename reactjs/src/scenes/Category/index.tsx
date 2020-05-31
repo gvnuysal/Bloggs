@@ -74,11 +74,11 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
   handleSearch = (value: string) => {
     this.setState({ filter: value }, async () => await this.getAll());
   };
-  handleSearchForIsActive=(value:any)=> {
+  handleSearchForIsActive = (value: any) => {
     this.setState({ isActive: value.currentTarget.checked }, async () => await this.getAll());
   };
   handleSearchForIsDeleted = (value: any) => {
-    this.setState({ isDeleted:  value.currentTarget.checked }, async () => await this.getAll());
+    this.setState({ isDeleted: value.currentTarget.checked }, async () => await this.getAll());
   };
   saveFormRef = (formRef: any) => {
     this.formRef = formRef;
@@ -169,12 +169,12 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
           <Col sm={{ span: 6, offset: 0 }}>
             <Search placeholder={L('Filter')} onSearch={this.handleSearch} />
           </Col>
-          <Col sm={{ span: 3, offset: 1 }}>
-          
-        <Checkbox  onClick={this.handleSearchForIsActive} >{L('IsActive')}</Checkbox>
-        <Checkbox  onClick={this.handleSearchForIsDeleted} >{L('IsDeleted')}</Checkbox>
+          <Col sm={{ span: 5, offset: 1 }}>
+            <Checkbox defaultChecked={true} onClick={this.handleSearchForIsActive}>
+              {L('IsActive')}
+            </Checkbox>
+            <Checkbox onClick={this.handleSearchForIsDeleted}>{L('IsDeleted')}</Checkbox>
           </Col>
-         
         </Row>
         <Row style={{ marginTop: 20 }}>
           <Col
