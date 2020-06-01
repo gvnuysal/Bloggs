@@ -2,7 +2,7 @@ export interface Category{
     id:number;
     name:string;
     isActive:boolean;
-    isDelete:boolean;
+    isDeleted:boolean;
     description:string;
 }
 export interface GetCategoryForUpdateOutput{

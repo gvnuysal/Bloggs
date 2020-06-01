@@ -2,6 +2,6 @@ export interface UpdateCategoryInput{
     name:string;
     description:string;
     isActive:boolean;
-    isDelete:boolean;
+    isDeleted:boolean;
     id:number;
 }

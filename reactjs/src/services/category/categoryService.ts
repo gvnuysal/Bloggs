@@ -12,7 +12,7 @@ class CategoryService {
         let result = await http.get('/api/services/app/Category/GetAll', { params: pagedFilterAndSortedRequest });
         return result.data.result;
     }
-    public async getRoleForEdit(entityDto: EntityDto): Promise<GetCategoryForUpdateOutput> {
+    public async getCategoryForEdit(entityDto: EntityDto): Promise<GetCategoryForUpdateOutput> {
         let result = await http.get('api/services/app/Category/GetCategoryForUpdate', { params: entityDto });
         return result.data.result;
     }

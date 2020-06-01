@@ -99,7 +99,7 @@ export const appRouters: any = [
     permission:'',
     title:L('Categories'),
     name:'categories',
-    icon: 'info-circle',
+    icon: 'bars',
     showInMenu: true,
     component:LoadableComponent(()=>import('../../scenes/Category')),
 
@@ -109,7 +109,7 @@ export const appRouters: any = [
     permission:'',
     title:L('Tags'),
     name:'tags',
-    icon: 'info-circle',
+    icon: 'tag',
     showInMenu: true,
     component:LoadableComponent(()=>import('../../scenes/Tag')),
 

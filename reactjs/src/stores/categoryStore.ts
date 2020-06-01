@@ -28,7 +28,7 @@ class CategoryStore{
       }
     }
     @action async getCategoryForEdit(entityDto:EntityDto){
-        let result=await categoryService.getRoleForEdit(entityDto);
+        let result=await categoryService.getCategoryForEdit(entityDto);
         this.categoryEdit.category=result.category;
     }
     @action async create(createCategoryInput:CreateCategoryInput){

@@ -115,6 +115,7 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
   options = {};
   render() {
     const { categories } = this.props.categoryStore;
+    const { isDeleted }=this.state;
     const columns = [
       { title: L('CategoryName'), dataIndex: 'name', key: 'name', width: 150 },
       { title: L('Description'), dataIndex: 'description', key: 'description', width: 150 },
@@ -127,8 +128,8 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
               trigger={['click']}
               overlay={
                 <Menu>
-                  <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{L('Edit')}</Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>
+                  <Menu.Item  onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{L('Edit')}</Menu.Item>
+                { !isDeleted &&  <Menu.Item  onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>}
                 </Menu>
               }
               placement="bottomLeft"
@@ -203,9 +204,10 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
           onCancel={() => {
             this.setState({ modalVisible: false });
           }}
-          modalType={this.state.categoryId === 0 ? 'edit' : 'create'}
+          modalType={this.state.categoryId === 0 ? 'create' : 'edit'}
           onOk={this.handleCreate}
           categoryStore={this.props.categoryStore}
+          isDeleted={this.state.isDeleted}
         />
       </Card>
     );

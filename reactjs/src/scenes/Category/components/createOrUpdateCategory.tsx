@@ -12,6 +12,7 @@ export interface ICreateOrUpdateCategoryProps extends FormComponentProps {
   onCancel: () => void;
   modalType: string;
   onOk: () => void;
+  isDeleted: boolean;
 }
 class CreateOrUpdateCategory extends React.Component<ICreateOrUpdateCategoryProps> {
   state = {
@@ -36,7 +37,8 @@ class CreateOrUpdateCategory extends React.Component<ICreateOrUpdateCategoryProp
         xxl: { span: 18 },
       },
     };
-
+    let modalType = this.props.modalType;
+    let isDeleted = this.props.isDeleted;
     const { getFieldDecorator } = this.props.form;
     return (
       <Modal
@@ -56,9 +58,13 @@ class CreateOrUpdateCategory extends React.Component<ICreateOrUpdateCategoryProp
         <FormItem label={L('IsActive')} {...formItemLayout}>
           {getFieldDecorator('isActive', { valuePropName: 'checked' })(<Checkbox />)}
         </FormItem>
-        <FormItem label={L('IsDeleted')} {...formItemLayout}>
-          {getFieldDecorator('isDelete', { valuePropName: 'checked' })(<Checkbox />)}
-        </FormItem>
+        {modalType == 'edit' && isDeleted ? (
+          <FormItem label={L('IsDeleted')} {...formItemLayout}>
+            {getFieldDecorator('isDeleted', { valuePropName: 'checked' })(<Checkbox />)}
+          </FormItem>
+        ) : (
+          ''
+        )}
       </Modal>
     );
   }
