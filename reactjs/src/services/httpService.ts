@@ -1,4 +1,4 @@
-import AppConsts from './../lib/appconst';
+//import AppConsts from './../lib/appconst';
 import { L } from '../lib/abpUtility';
 import { Modal } from 'antd';
 import axios from 'axios';
@@ -8,7 +8,8 @@ const qs = require('qs');
 declare var abp: any;
 
 const http = axios.create({
-  baseURL: AppConsts.remoteServiceBaseUrl,
+ // baseURL: AppConsts.remoteServiceBaseUrl,
+ baseURL:'http://localhost:21021/',
   timeout: 30000,
   paramsSerializer: function(params) {
     return qs.stringify(params, {

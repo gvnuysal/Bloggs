@@ -169,9 +169,9 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
           <Col sm={{ span: 6, offset: 0 }}>
             <Search placeholder={L('Filter')} onSearch={this.handleSearch} />
           </Col>
-          <Col sm={{ span: 3, offset: 1 }}>
+          <Col sm={{ span: 5, offset: 1 }}>
           
-        <Checkbox  onClick={this.handleSearchForIsActive} >{L('IsActive')}</Checkbox>
+        <Checkbox defaultChecked={true} onClick={this.handleSearchForIsActive} >{L('IsActive')}</Checkbox>
         <Checkbox  onClick={this.handleSearchForIsDeleted} >{L('IsDeleted')}</Checkbox>
           </Col>
          

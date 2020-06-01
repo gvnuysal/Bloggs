@@ -7,3 +7,4 @@ bin/
 aspnet-core/src/Bloggs.Web.Host/App_Data/Logs/
 aspnet-core/src/Bloggs.Web.Mvc/App_Data/Logs/
 aspnet-core/src/Bloggs.Migrator/Logs/Logs.txt
+/node_modules
