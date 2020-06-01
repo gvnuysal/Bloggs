@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Avatar, Col, Icon, Layout, Menu } from 'antd';
 import { L, isGranted } from '../../lib/abpUtility';
 
-import AbpLogo from '../../images/abp-logo-long.png';
+import AbpLogo from '../../images/BlogGS2.png';
 import { appRouters } from '../../components/Router/router.config';
 
 const { Sider } = Layout;
@@ -27,7 +27,7 @@ const SiderMenu = (props: ISiderMenuProps) => {
         </Col>
       ) : (
         <Col style={{ textAlign: 'center', marginTop: 15, marginBottom: 10 }}>
-          <Avatar shape="square" style={{ height: 54, width: 128 }} src={AbpLogo} />
+          <Avatar shape="square" style={{ height: 54, width: 170 }} src={AbpLogo} />
         </Col>
       )}
 

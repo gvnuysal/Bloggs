@@ -5,6 +5,7 @@ import SessionStore from './sessionStore';
 import AuthenticationStore from './authenticationStore';
 import AccountStore from './accountStore';
 import CategoryStore from './categoryStore';
+import TagStore from './tagStore';
 
 export default function initializeStores() {
   return {
@@ -14,6 +15,7 @@ export default function initializeStores() {
     userStore: new UserStore(),
     sessionStore: new SessionStore(),
     accountStore: new AccountStore(),
-    categoryStore:new CategoryStore()
+    categoryStore:new CategoryStore(),
+    tagStore:new TagStore()
   };
 }

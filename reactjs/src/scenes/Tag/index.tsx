@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import CategoryStore from '../../stores/categoryStore';
+import TagStore from '../../stores/tagStore';
 import { FormComponentProps } from 'antd/lib/form';
 import AppComponentBase from '../../components/AppComponentBase';
 import { observer, inject } from 'mobx-react';
@@ -8,45 +8,42 @@ import Stores from '../../stores/storeIdentifier';
 import { L } from '../../lib/abpUtility';
 import { Dropdown, Menu, Button, Card, Col, Row, Table, Input, Modal, Checkbox } from 'antd';
 import { EntityDto } from '../../services/dto/entityDto';
-import CreateOrUpdateCategory from './components/createOrUpdateCategory';
-export interface ICategoryProps extends FormComponentProps {
-  categoryStore: CategoryStore;
+import CreateOrUpdateTag from './components/createOrUpdateTag';
+export interface ITagProps extends FormComponentProps {
+  tagStore: TagStore;
 }
-export interface ICategoryState {
+export interface ITagState {
   modalVisible: boolean;
   maxResultCount: number;
   skipCount: number;
-  categoryId: number;
+  tagId: number;
   filter: string;
-  isActive: boolean;
   isDeleted: boolean;
 }
 
 const confirm = Modal.confirm;
 const Search = Input.Search;
 
-@inject(Stores.CategoryStore)
+@inject(Stores.TagStore)
 @observer
-class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
+class Tag extends AppComponentBase<ITagProps, ITagState> {
   formRef: any;
   state = {
     modalVisible: false,
     maxResultCount: 10,
     skipCount: 0,
-    categoryId: 0,
+    tagId: 0,
     filter: '',
     isDeleted: false,
-    isActive: true,
   };
   async componentDidMount() {
     await this.getAll();
   }
   async getAll() {
-    await this.props.categoryStore.getAll({
+    await this.props.tagStore.getAll({
       maxResultCount: this.state.maxResultCount,
       keyword: this.state.filter,
       skipCount: this.state.skipCount,
-      isActive: this.state.isActive,
       isDeleted: this.state.isDeleted,
     });
   }
@@ -61,24 +58,21 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
   };
   async createOrUpdateModalOpen(entityDto: EntityDto) {
     if (entityDto.id === 0) {
-      await this.props.categoryStore.createCategory();
+      await this.props.tagStore.createTag();
     } else {
-      await this.props.categoryStore.getCategoryForEdit(entityDto);
+      await this.props.tagStore.getTagForEdit(entityDto);
     }
-    this.setState({ categoryId: entityDto.id });
+    this.setState({ tagId: entityDto.id });
     this.Modal();
     this.formRef.props.form.setFieldsValue({
-      ...this.props.categoryStore.categoryEdit.category,
+      ...this.props.tagStore.tagEdit.tag,
     });
   }
   handleSearch = (value: string) => {
     this.setState({ filter: value }, async () => await this.getAll());
   };
-  handleSearchForIsActive=(value:any)=> {
-    this.setState({ isActive: value.currentTarget.checked }, async () => await this.getAll());
-  };
   handleSearchForIsDeleted = (value: any) => {
-    this.setState({ isDeleted:  value.currentTarget.checked }, async () => await this.getAll());
+    this.setState({ isDeleted: value.currentTarget.checked }, async () => await this.getAll());
   };
   saveFormRef = (formRef: any) => {
     this.formRef = formRef;
@@ -89,10 +83,10 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
       if (err) {
         return;
       } else {
-        if (this.state.categoryId === 0) {
-          await this.props.categoryStore.create(values);
+        if (this.state.tagId === 0) {
+          await this.props.tagStore.create(values);
         } else {
-          await this.props.categoryStore.update({ id: this.state.categoryId, ...values });
+          await this.props.tagStore.update({ id: this.state.tagId, ...values });
         }
       }
 
@@ -107,17 +101,18 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
     confirm({
       title: L('DoYouWantDelete'),
       onOk() {
-        self.props.categoryStore.delete(input);
+        self.props.tagStore.delete(input);
       },
       onCancel() {},
     });
   }
   options = {};
   render() {
-    const { categories } = this.props.categoryStore;
+    let { isDeleted } = this.state;
+
+    const { tags } = this.props.tagStore;
     const columns = [
-      { title: L('CategoryName'), dataIndex: 'name', key: 'name', width: 150 },
-      { title: L('Description'), dataIndex: 'description', key: 'description', width: 150 },
+      { title: L('TagName'), dataIndex: 'name', key: 'name', width: 150 },
       {
         title: L('Actions'),
         width: 150,
@@ -128,7 +123,8 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
               overlay={
                 <Menu>
                   <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{L('Edit')}</Menu.Item>
-                  <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>
+                  {/*<Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>*/}
+                  {!isDeleted && <Menu.Item onClick={() => this.delete({ id: item.id })}>{L('Delete')}</Menu.Item>}
                 </Menu>
               }
               placement="bottomLeft"
@@ -152,7 +148,7 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
             xl={{ span: 2, offset: 0 }}
             xxl={{ span: 2, offset: 0 }}
           >
-            <h2>{L('Categories')}</h2>
+            <h2>{L('Tags')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -170,11 +166,8 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
             <Search placeholder={L('Filter')} onSearch={this.handleSearch} />
           </Col>
           <Col sm={{ span: 5, offset: 1 }}>
-          
-        <Checkbox defaultChecked={true} onClick={this.handleSearchForIsActive} >{L('IsActive')}</Checkbox>
-        <Checkbox  onClick={this.handleSearchForIsDeleted} >{L('IsDeleted')}</Checkbox>
+            <Checkbox onClick={this.handleSearchForIsDeleted}>{L('IsDeleted')}</Checkbox>
           </Col>
-         
         </Row>
         <Row style={{ marginTop: 20 }}>
           <Col
@@ -189,27 +182,28 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
               rowKey="id"
               size={'default'}
               bordered={true}
-              pagination={{ pageSize: this.state.maxResultCount, total: categories === undefined ? 0 : categories.totalCount, defaultCurrent: 1 }}
+              pagination={{ pageSize: this.state.maxResultCount, total: tags === undefined ? 0 : tags.totalCount, defaultCurrent: 1 }}
               columns={columns}
-              loading={categories === undefined ? true : false}
-              dataSource={categories === undefined ? [] : categories.items}
+              loading={tags === undefined ? true : false}
+              dataSource={tags === undefined ? [] : tags.items}
               onChange={this.handleTableChange}
             />
           </Col>
         </Row>
-        <CreateOrUpdateCategory
+        <CreateOrUpdateTag
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.modalVisible}
           onCancel={() => {
             this.setState({ modalVisible: false });
           }}
-          modalType={this.state.categoryId === 0 ? 'edit' : 'create'}
+          modalType={this.state.tagId === 0 ? 'create' : 'edit'}
           onOk={this.handleCreate}
-          categoryStore={this.props.categoryStore}
+          tagStore={this.props.tagStore}
+          isDeleted={this.state.isDeleted}
         />
       </Card>
     );
   }
 }
 
-export default Category;
+export default Tag;

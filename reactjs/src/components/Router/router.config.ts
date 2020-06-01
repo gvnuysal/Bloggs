@@ -1,4 +1,5 @@
 import LoadableComponent from './../Loadable/index';
+import { L } from '../../lib/abpUtility';
 
 export const userRouter: any = [
   {
@@ -42,7 +43,7 @@ export const appRouters: any = [
   {
     path: '/users',
     permission: 'Pages.Users',
-    title: 'Users',
+    title: L('Users'),
     name: 'user',
     icon: 'user',
     showInMenu: true,
@@ -51,7 +52,7 @@ export const appRouters: any = [
   {
     path: '/roles',
     permission: 'Pages.Roles',
-    title: 'Roles',
+    title: L('Roles'),
     name: 'role',
     icon: 'tags',
     showInMenu: true,
@@ -60,7 +61,7 @@ export const appRouters: any = [
   {
     path: '/tenants',
     permission: 'Pages.Tenants',
-    title: 'Tenants',
+    title: L('Tenants'),
     name: 'tenant',
     icon: 'appstore',
     showInMenu: true,
@@ -69,7 +70,7 @@ export const appRouters: any = [
   {
     path: '/about',
     permission: '',
-    title: 'About',
+    title: L('About'),
     name: 'about',
     icon: 'info-circle',
     showInMenu: true,
@@ -78,7 +79,7 @@ export const appRouters: any = [
   {
     path: '/logout',
     permission: '',
-    title: 'Logout',
+    title: L('Logout'),
     name: 'logout',
     icon: 'info-circle',
     showInMenu: false,
@@ -96,11 +97,21 @@ export const appRouters: any = [
   {
     path:'/categories',
     permission:'',
-    title:'Kategori',
+    title:L('Categories'),
     name:'categories',
     icon: 'info-circle',
     showInMenu: true,
     component:LoadableComponent(()=>import('../../scenes/Category')),
+
+  },
+  {
+    path:'/tags',
+    permission:'',
+    title:L('Tags'),
+    name:'tags',
+    icon: 'info-circle',
+    showInMenu: true,
+    component:LoadableComponent(()=>import('../../scenes/Tag')),
 
   }
 ];

@@ -6,14 +6,14 @@ using System.ComponentModel.DataAnnotations;
 namespace Bloggs.Categories.Dto
 {
     [AutoMap(typeof(Category))]
-    public class UpdateCategoryDto:EntityDto<long>
+    public class UpdateCategoryDto : EntityDto<long>
     {
         [Required]
         public string Name { get; set; }
         [Required]
         public bool IsActive { get; set; }
         [Required]
-        public bool IsDelete { get; set; }
+        public bool IsDeleted { get; set; }
         [MaxLength(500)]
         public string Description { get; set; }
     }

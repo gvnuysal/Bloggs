@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Bloggs.Categories
 {
     //[AbpAuthorize(PermissionNames.Pages_Categories)]
-    public class CategoryAppService : AsyncCrudAppService<Category, CategoryDto, long, PagedCategoryResultRequestDto, CreateCategoryDto, CreateCategoryDto, CategoryDto, DeleteCategoryDto>, ICategoryAppService
+    public class CategoryAppService : AsyncCrudAppService<Category, CategoryDto, long, PagedCategoryResultRequestDto, CreateCategoryDto, UpdateCategoryDto, CategoryDto, DeleteCategoryDto>, ICategoryAppService
     {
         private readonly IRepository<Article, long> _articleRepository;
         public CategoryAppService(IRepository<Category, long> repository, IRepository<Article, long> articleRepository) : base(repository)

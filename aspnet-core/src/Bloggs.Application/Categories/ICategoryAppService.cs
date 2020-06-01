@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Bloggs.Categories
 {
-    public interface ICategoryAppService:IAsyncCrudAppService<CategoryDto,long,PagedCategoryResultRequestDto,CreateCategoryDto,CreateCategoryDto,CategoryDto,DeleteCategoryDto>
+    public interface ICategoryAppService:IAsyncCrudAppService<CategoryDto,long,PagedCategoryResultRequestDto,CreateCategoryDto,UpdateCategoryDto,CategoryDto,DeleteCategoryDto>
     {
         Task<GetCategoryUpdateOutput> GetCategoryForUpdate(EntityDto input);
     }

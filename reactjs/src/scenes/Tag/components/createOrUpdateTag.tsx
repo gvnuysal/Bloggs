@@ -1,19 +1,20 @@
 import React from 'react';
 import { FormComponentProps } from 'antd/lib/form';
-import CategoryStore from '../../../stores/categoryStore';
+import TagStore from '../../../stores/tagStore';
 import { Form, Input, Modal, Checkbox } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import FormItem from 'antd/lib/form/FormItem';
-import categoryRules from './createOrUpdateCategory.validation';
+import tagRules from './createOrUpdateTag.validation';
 
-export interface ICreateOrUpdateCategoryProps extends FormComponentProps {
-  categoryStore: CategoryStore;
+export interface ICreateOrUpdateTagProps extends FormComponentProps {
+  tagStore: TagStore;
   visible: boolean;
   onCancel: () => void;
   modalType: string;
   onOk: () => void;
+  isDeleted: boolean;
 }
-class CreateOrUpdateCategory extends React.Component<ICreateOrUpdateCategoryProps> {
+class CreateOrUpdateTag extends React.Component<ICreateOrUpdateTagProps> {
   state = {
     confirmDirty: false,
   };
@@ -37,6 +38,9 @@ class CreateOrUpdateCategory extends React.Component<ICreateOrUpdateCategoryProp
       },
     };
 
+    let modalType = this.props.modalType;
+    let isDeleted = this.props.isDeleted;
+
     const { getFieldDecorator } = this.props.form;
     return (
       <Modal
@@ -44,24 +48,22 @@ class CreateOrUpdateCategory extends React.Component<ICreateOrUpdateCategoryProp
         cancelText={L('Cancel')}
         okText={L('Save')}
         onCancel={this.props.onCancel}
-        title={L('Categories')}
+        title={L('Tags')}
         onOk={this.props.onOk}
       >
-        <FormItem label={L('CategoryName')} {...formItemLayout}>
-          {getFieldDecorator('name', { rules: categoryRules.name })(<Input />)}
+        <FormItem label={L('TagName')} {...formItemLayout}>
+          {getFieldDecorator('name', { rules: tagRules.name })(<Input />)}
         </FormItem>
-        <FormItem label={L('Description')} {...formItemLayout}>
-          {getFieldDecorator('description')(<Input />)}
-        </FormItem>
-        <FormItem label={L('IsActive')} {...formItemLayout}>
-          {getFieldDecorator('isActive', { valuePropName: 'checked' })(<Checkbox />)}
-        </FormItem>
-        <FormItem label={L('IsDeleted')} {...formItemLayout}>
-          {getFieldDecorator('isDelete', { valuePropName: 'checked' })(<Checkbox />)}
-        </FormItem>
+        {modalType == 'edit' && isDeleted ? (
+          <FormItem label={L('IsDeleted')} {...formItemLayout}>
+            {getFieldDecorator('isDeleted', { valuePropName: 'checked' })(<Checkbox />)}
+          </FormItem>
+        ) : (
+          ''
+        )}
       </Modal>
     );
   }
 }
 
-export default Form.create<ICreateOrUpdateCategoryProps>()(CreateOrUpdateCategory);
+export default Form.create<ICreateOrUpdateTagProps>()(CreateOrUpdateTag);

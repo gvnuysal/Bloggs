@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="AppName">Bloggs</text>
     <text name="HomePage" value="Home page" />
     <text name="About" value="About" />
     <text name="WelcomeMessage" value="Welcome to Bloggs!" />
@@ -121,9 +122,12 @@
     <text name="Categories">Categories</text>
     <text name="CategoryName">Category Name</text>
     <text name="CategoryNameFieldIsRequired">Category name field is required.</text>
-    <text name="CategoryDescription">Description.</text>
+    <text name="Description">Description.</text>
     <text name="DoYouWantDelete">Do you Want to delete these items?</text>
     <text name="ErrorTitle">Error!</text>
     <text name="IsDeleted">Deleted?</text>
+    <text name="Tags">Tags</text>
+    <text name="TagName">Tag Name</text>
+    <text name="TagNameFieldIsRequired">Tag name field is required.</text>
   </texts>
 </localizationDictionary>

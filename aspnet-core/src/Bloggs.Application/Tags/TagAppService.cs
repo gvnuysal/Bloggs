@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bloggs.Tags
 {
-    public class TagAppService : AsyncCrudAppService<Tag, TagDto, long, PagedTagResultRequestDto, CreateTagDto, CreateTagDto>, ITagAppService
+    public class TagAppService : AsyncCrudAppService<Tag, TagDto, long, PagedTagResultRequestDto, CreateTagDto, UpdateTagDto>, ITagAppService
     {
         private IRepository<Tag, long> _repository;
         public TagAppService(IRepository<Tag, long> repository) : base(repository)
@@ -28,6 +28,13 @@ namespace Bloggs.Tags
             var value = ObjectMapper.Map<List<TagDto>>(articleFollows);
 
             return Task.FromResult(new PagedResultDto<TagDto> { Items = value, TotalCount = value.Count() });
+        }
+        public async Task<GetTagUpdateOutput> GetTagForUpdate(EntityDto input)
+        {
+            var tag = await Repository.GetAsync(input.Id);
+            var updateTagDto = ObjectMapper.Map<UpdateTagDto>(tag);
+
+            return new GetTagUpdateOutput { Tag = updateTagDto };
         }
     }
 }

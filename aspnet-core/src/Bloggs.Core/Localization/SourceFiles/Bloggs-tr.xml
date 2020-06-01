@@ -107,9 +107,12 @@
     <text name="Categories">Kategoriler</text>
     <text name="CategoryName">Kategori Adı</text>
     <text name="CategoryNameFieldIsRequired">Kategori adı boş geçilemez.</text>
-    <text name="CategoryDescription">Açıklama</text>
+    <text name="Description">Açıklama</text>
     <text name="DoYouWantDelete">Silmek istediğinizden emin misiniz?</text>
     <text name="ErrorTitle">Bu işlem yapılamaz!</text>
     <text name="IsDeleted">Silinen?</text>
+    <text name="Tags">Etiketler</text>
+    <text name="TagName">Etiket Adı</text>
+    <text name="TagNameFieldIsRequired">Etiket adı boş geçilemez.</text>
   </texts>
 </localizationDictionary>
