@@ -1,5 +1,5 @@
-export interface GetAllCategoryOutput{
-    id:number;
-    name:string;
-    isActive:boolean;
+export interface GetAllCategoryOutput {
+    id: number;
+    name: string;
+    isActive: boolean;
 }

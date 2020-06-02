@@ -1,22 +1,22 @@
 import * as React from 'react';
 
-import CategoryStore from '../../stores/categoryStore';
+import AuthorStore from '../../stores/authorStore';
 import { FormComponentProps } from 'antd/lib/form';
 import AppComponentBase from '../../components/AppComponentBase';
 import { observer, inject } from 'mobx-react';
 import Stores from '../../stores/storeIdentifier';
 import { L } from '../../lib/abpUtility';
-import { Dropdown, Menu, Button, Card, Col, Row, Table, Input, Modal, Checkbox } from 'antd';
+import { Dropdown, Menu, Button, Card, Col, Row, Table, Input, Modal, Checkbox, Tag } from 'antd';
 import { EntityDto } from '../../services/dto/entityDto';
-import CreateOrUpdateCategory from './components/createOrUpdateCategory';
-export interface ICategoryProps extends FormComponentProps {
-  categoryStore: CategoryStore;
+import CreateOrUpdateAuthor from './components/createOrUpdateAuthor';
+export interface IAuthorProps extends FormComponentProps {
+  authorStore: AuthorStore;
 }
-export interface ICategoryState {
+export interface IAuthorState {
   modalVisible: boolean;
   maxResultCount: number;
   skipCount: number;
-  categoryId: number;
+  authorId: number;
   filter: string;
   isActive: boolean;
   isDeleted: boolean;
@@ -25,15 +25,15 @@ export interface ICategoryState {
 const confirm = Modal.confirm;
 const Search = Input.Search;
 
-@inject(Stores.CategoryStore)
+@inject(Stores.AuthorStore)
 @observer
-class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
+class Author extends AppComponentBase<IAuthorProps, IAuthorState> {
   formRef: any;
   state = {
     modalVisible: false,
     maxResultCount: 10,
     skipCount: 0,
-    categoryId: 0,
+    authorId: 0,
     filter: '',
     isDeleted: false,
     isActive: true,
@@ -42,9 +42,9 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
     await this.getAll();
   }
   async getAll() {
-    await this.props.categoryStore.getAll({
+    await this.props.authorStore.getAll({
       maxResultCount: this.state.maxResultCount,
-      keyword: this.state.filter,
+      FullName: this.state.filter,
       skipCount: this.state.skipCount,
       isActive: this.state.isActive,
       isDeleted: this.state.isDeleted,
@@ -61,14 +61,14 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
   };
   async createOrUpdateModalOpen(entityDto: EntityDto) {
     if (entityDto.id === 0) {
-      await this.props.categoryStore.createCategory();
+      await this.props.authorStore.createAuthor();
     } else {
-      await this.props.categoryStore.getCategoryForEdit(entityDto);
+      await this.props.authorStore.getAuthorForEdit(entityDto);
     }
-    this.setState({ categoryId: entityDto.id });
+    this.setState({ authorId: entityDto.id });
     this.Modal();
     this.formRef.props.form.setFieldsValue({
-      ...this.props.categoryStore.categoryEdit.category,
+      ...this.props.authorStore.authorEdit.author,
     });
   }
   handleSearch = (value: string) => {
@@ -89,10 +89,10 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
       if (err) {
         return;
       } else {
-        if (this.state.categoryId === 0) {
-          await this.props.categoryStore.create(values);
+        if (this.state.authorId === 0) {
+          await this.props.authorStore.create(values);
         } else {
-          await this.props.categoryStore.update({ id: this.state.categoryId, ...values });
+          await this.props.authorStore.update({ id: this.state.authorId, ...values });
         }
       }
 
@@ -107,18 +107,24 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
     confirm({
       title: L('DoYouWantDelete'),
       onOk() {
-        self.props.categoryStore.delete(input);
+        self.props.authorStore.delete(input);
       },
       onCancel() {},
     });
   }
   options = {};
   render() {
-    const { categories } = this.props.categoryStore;
+    const { authors } = this.props.authorStore;
     const { isDeleted } = this.state;
     const columns = [
-      { title: L('CategoryName'), dataIndex: 'name', key: 'name', width: 150 },
-      { title: L('Description'), dataIndex: 'description', key: 'description', width: 150 },
+      { title: L('AuthorName'), dataIndex: 'user.fullName', key: 'name', width: 150 },
+      {
+        title: L('IsActive'),
+        dataIndex: 'isActive',
+        key: 'isActive',
+        width: 150,
+        render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>),
+      },
       {
         title: L('Actions'),
         width: 150,
@@ -153,7 +159,7 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
             xl={{ span: 2, offset: 0 }}
             xxl={{ span: 2, offset: 0 }}
           >
-            <h2>{L('Categories')}</h2>
+            <h2>{L('Authors')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -190,23 +196,23 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
               rowKey="id"
               size={'default'}
               bordered={true}
-              pagination={{ pageSize: this.state.maxResultCount, total: categories === undefined ? 0 : categories.totalCount, defaultCurrent: 1 }}
+              pagination={{ pageSize: this.state.maxResultCount, total: authors === undefined ? 0 : authors.totalCount, defaultCurrent: 1 }}
               columns={columns}
-              loading={categories === undefined ? true : false}
-              dataSource={categories === undefined ? [] : categories.items}
+              loading={authors === undefined ? true : false}
+              dataSource={authors === undefined ? [] : authors.items}
               onChange={this.handleTableChange}
             />
           </Col>
         </Row>
-        <CreateOrUpdateCategory
+        <CreateOrUpdateAuthor
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.modalVisible}
           onCancel={() => {
             this.setState({ modalVisible: false });
           }}
-          modalType={this.state.categoryId === 0 ? 'create' : 'edit'}
+          modalType={this.state.authorId === 0 ? 'create' : 'edit'}
           onOk={this.handleCreate}
-          categoryStore={this.props.categoryStore}
+          authorStore={this.props.authorStore}
           isDeleted={this.state.isDeleted}
         />
       </Card>
@@ -214,4 +220,4 @@ class Category extends AppComponentBase<ICategoryProps, ICategoryState> {
   }
 }
 
-export default Category;
+export default Author;

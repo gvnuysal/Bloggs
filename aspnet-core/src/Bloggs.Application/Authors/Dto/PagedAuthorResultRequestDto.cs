@@ -6,5 +6,7 @@ namespace Bloggs.Authors.Dto
     {
         public long UserId { get; set; }
         public string FullName { get; set; }
+        public bool? IsDeleted { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

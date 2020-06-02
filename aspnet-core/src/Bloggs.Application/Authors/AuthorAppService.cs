@@ -59,11 +59,21 @@ namespace Bloggs.Authors
                                      .Include(x => x.User)
                                      .WhereIf(!input.FullName.IsNullOrWhiteSpace(), x => x.User.FullName.ToLower().Contains(input.FullName.Trim().ToLower()))
                                      .WhereIf(input.UserId > 0, x => x.UserId.ToString() == input.UserId.ToString().Trim())
+                                     .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted)
+                                     .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive)
                                      .ToList();
 
             var value = ObjectMapper.Map<List<AuthorDto>>(authors);
 
             return Task.FromResult(new PagedResultDto<AuthorDto> { Items = value, TotalCount = value.Count() });
+        }
+
+        public async Task<GetAuthorUpdateOutput> GetAuthorForUpdate(EntityDto input)
+        {
+            var author = await Repository.GetAsync(input.Id);
+            var updateAuthorDto = ObjectMapper.Map<UpdateAuthorDto>(author);
+
+            return new GetAuthorUpdateOutput { Author = updateAuthorDto };
         }
     }
 }

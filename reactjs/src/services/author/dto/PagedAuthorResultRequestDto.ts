@@ -1,7 +1,7 @@
 import { PagedFilterAndSortedRequest } from '../../dto/pagedFilterAndSortedRequest';
 
-export interface PagedCategoryResultRequestDto extends PagedFilterAndSortedRequest {
-    keyword: string;
+export interface PagedAuthorResultRequestDto extends PagedFilterAndSortedRequest {
+    FullName: string;
     isActive: boolean;
     isDeleted: boolean;
 }

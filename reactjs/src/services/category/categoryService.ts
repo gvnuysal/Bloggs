@@ -20,14 +20,14 @@ class CategoryService {
         let result = await http.post('api/services/app/Category/Create', createCategoryInput)
         return result.data;
     }
-    public async update(updateCategoryInput:UpdateCategoryInput){
-        let result=await http.put('api/services/app/Category/Update',updateCategoryInput);
+    public async update(updateCategoryInput: UpdateCategoryInput) {
+        let result = await http.put('api/services/app/Category/Update', updateCategoryInput);
         return result.data;
     }
     public async delete(entityDto: EntityDto) {
         let result = await http.delete('api/services/app/Category/Delete', { params: entityDto });
         return result.data;
-      }
+    }
 }
 
 export default new CategoryService();

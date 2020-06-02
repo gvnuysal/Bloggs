@@ -73,7 +73,7 @@ export const appRouters: any = [
     title: L('About'),
     name: 'about',
     icon: 'info-circle',
-    showInMenu: true,
+    showInMenu: false,
     component: LoadableComponent(() => import('../../scenes/About')),
   },
   {
@@ -112,6 +112,16 @@ export const appRouters: any = [
     icon: 'tag',
     showInMenu: true,
     component:LoadableComponent(()=>import('../../scenes/Tag')),
+
+  },
+  {
+    path:'/authors',
+    permission:'',
+    title:L('Authors'),
+    name:'authors',
+    icon: 'user',
+    showInMenu: true,
+    component:LoadableComponent(()=>import('../../scenes/Author')),
 
   }
 ];

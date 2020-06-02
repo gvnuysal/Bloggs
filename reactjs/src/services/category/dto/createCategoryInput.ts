@@ -1,5 +1,5 @@
-export interface CreateCategoryInput{
-    name:string;
-    description:string;
-    isActive:boolean;
+export interface CreateCategoryInput {
+    name: string;
+    description: string;
+    isActive: boolean;
 }

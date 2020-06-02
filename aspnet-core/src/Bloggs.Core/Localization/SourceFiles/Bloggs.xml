@@ -129,5 +129,7 @@
     <text name="Tags">Tags</text>
     <text name="TagName">Tag Name</text>
     <text name="TagNameFieldIsRequired">Tag name field is required.</text>
+    <text name="Authors">Authors</text>
+    <text name="AuthorName">Author Name</text>
   </texts>
 </localizationDictionary>

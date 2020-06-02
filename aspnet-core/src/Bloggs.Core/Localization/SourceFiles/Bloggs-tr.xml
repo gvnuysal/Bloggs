@@ -114,5 +114,7 @@
     <text name="Tags">Etiketler</text>
     <text name="TagName">Etiket Adı</text>
     <text name="TagNameFieldIsRequired">Etiket adı boş geçilemez.</text>
+    <text name="Authors">Yazarlar</text>
+    <text name="AuthorName">Yazar Adı</text>
   </texts>
 </localizationDictionary>

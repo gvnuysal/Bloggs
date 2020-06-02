@@ -9,39 +9,39 @@ import { EntityDto } from '../services/dto/entityDto';
 import { CreateCategoryInput } from '../services/category/dto/createCategoryInput';
 import { UpdateCategoryInput } from '../services/category/dto/updateCategoryInput';
 
-class CategoryStore{
-    @observable categories!:PagedResultDto<GetAllCategoryOutput>;
-    @observable categoryEdit:CategoryEditModel=new CategoryEditModel();
-   
-    @action async getAll(pagedFilterAndSortedRequest:PagedCategoryResultRequestDto ){
-        let result=await categoryService.getAll(pagedFilterAndSortedRequest);
-        this.categories=result;
+class CategoryStore {
+    @observable categories!: PagedResultDto<GetAllCategoryOutput>;
+    @observable categoryEdit: CategoryEditModel = new CategoryEditModel();
+
+    @action async getAll(pagedFilterAndSortedRequest: PagedCategoryResultRequestDto) {
+        let result = await categoryService.getAll(pagedFilterAndSortedRequest);
+        this.categories = result;
     }
-    @action async createCategory(){
-      this.categoryEdit={
-          category:{
-              id:0,
-              name:'',
-              description:'',
-              isActive:true
-          }
-      }
+    @action async createCategory() {
+        this.categoryEdit = {
+            category: {
+                id: 0,
+                name: '',
+                description: '',
+                isActive: true
+            }
+        }
     }
-    @action async getCategoryForEdit(entityDto:EntityDto){
-        let result=await categoryService.getCategoryForEdit(entityDto);
-        this.categoryEdit.category=result.category;
+    @action async getCategoryForEdit(entityDto: EntityDto) {
+        let result = await categoryService.getCategoryForEdit(entityDto);
+        this.categoryEdit.category = result.category;
     }
-    @action async create(createCategoryInput:CreateCategoryInput){
+    @action async create(createCategoryInput: CreateCategoryInput) {
         await categoryService.create(createCategoryInput);
     }
 
-    @action async update(updateCategoryInput:UpdateCategoryInput){
+    @action async update(updateCategoryInput: UpdateCategoryInput) {
         await categoryService.update(updateCategoryInput);
     }
     @action  async delete(entityDto: EntityDto) {
 
-      await categoryService.delete(entityDto);
-      this.categories.items = this.categories.items.filter((x: GetAllCategoryOutput) => x.id !== entityDto.id);
+        await categoryService.delete(entityDto);
+        this.categories.items = this.categories.items.filter((x: GetAllCategoryOutput) => x.id !== entityDto.id);
     }
 }
 

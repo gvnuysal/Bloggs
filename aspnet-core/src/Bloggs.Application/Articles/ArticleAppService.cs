@@ -39,5 +39,13 @@ namespace Bloggs.Articles
 
             return Task.FromResult(new PagedResultDto<ArticleDto> { Items = value, TotalCount = value.Count() });
         }
+
+        public async Task<GetArticleUpdateOutput> GetArticleForUpdate(EntityDto input)
+        {
+            var article = await Repository.GetAsync(input.Id);
+            var updateArticleDto = ObjectMapper.Map<UpdateArticleDto>(article);
+
+            return new GetArticleUpdateOutput { Article = updateArticleDto };
+        }
     }
 }

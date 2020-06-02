@@ -1,8 +1,6 @@
-﻿using Abp.Application.Services.Dto;
-
-namespace Bloggs.Tags.Dto
+﻿namespace Bloggs.Tags.Dto
 {
-    public  class GetTagUpdateOutput : EntityDto<long>
+    public  class GetTagUpdateOutput
     {
         public UpdateTagDto Tag { get; set; }
     }
