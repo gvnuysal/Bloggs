@@ -104,6 +104,7 @@
     <text name="ConfirmNewPassword">Yeni şifreyi doğrula</text>
     <text name="AllReadyAuthor" value="Bu Kullanıcı zaten yazar olarak kayıtlıdır."></text>
     <text name="UsingCategory" value="Kategori,makale tablosunda kullanılıyor.Silinemez!"></text>
+    <text name="Category">Kategori</text>
     <text name="Categories">Kategoriler</text>
     <text name="CategoryName">Kategori Adı</text>
     <text name="CategoryNameFieldIsRequired">Kategori adı boş geçilemez.</text>
@@ -114,7 +115,14 @@
     <text name="Tags">Etiketler</text>
     <text name="TagName">Etiket Adı</text>
     <text name="TagNameFieldIsRequired">Etiket adı boş geçilemez.</text>
+    <text name="Author">Yazar</text>
     <text name="Authors">Yazarlar</text>
     <text name="AuthorName">Yazar Adı</text>
+    <text name="Articles">Makaleler</text>
+    <text name="ArticleTitle">Makale Başlığı</text>
+    <text name="ArticleContent">Makale İçeriği</text>
+    <text name="ArticleTitleFieldIsRequired">Makale başlığı boş geçilemez.</text>
+    <text name="ArticleContentFieldIsRequired">Makale içeriği boş geçilemez.</text>
+    <text name="CategoryFieldIsRequired">Kategori alanı boş geçilemez.</text>
   </texts>
 </localizationDictionary>

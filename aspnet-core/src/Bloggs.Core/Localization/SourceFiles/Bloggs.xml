@@ -119,6 +119,7 @@
     <text name="ResetPasswordStepTwoInfo">2. Copy this random password so you can send it to the user</text>
     <text name="AllReadyAuthor" value="This User is already registered as an author"></text>
     <text name="UsingCategory" value="Category is using in article entity.Do not Delete!"></text>
+    <text name="Category">Category</text>
     <text name="Categories">Categories</text>
     <text name="CategoryName">Category Name</text>
     <text name="CategoryNameFieldIsRequired">Category name field is required.</text>
@@ -129,7 +130,14 @@
     <text name="Tags">Tags</text>
     <text name="TagName">Tag Name</text>
     <text name="TagNameFieldIsRequired">Tag name field is required.</text>
+    <text name="Author">Author</text>
     <text name="Authors">Authors</text>
     <text name="AuthorName">Author Name</text>
+    <text name="Articles">Articles</text>
+    <text name="ArticleTitle">Article Title</text>
+    <text name="ArticleContent">Article Content</text>
+    <text name="ArticleTitleFieldIsRequired">Article title field is required.</text>
+    <text name="ArticleContentFieldIsRequired">Article content field is required.</text>
+    <text name="CategoryFieldIsRequired">Category field is required.</text>
   </texts>
 </localizationDictionary>

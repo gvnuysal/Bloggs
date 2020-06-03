@@ -31,8 +31,8 @@ namespace Bloggs.Articles
                                       || x.Title.ToLower().Contains(input.Keyword.Trim().ToLower()))
                                       .WhereIf(input.AuthorId > 0, x => x.AuthorId == input.AuthorId)
                                       .WhereIf(input.CategoryId > 0, x => x.CategoryId == input.CategoryId)
-                                      .WhereIf(!input.IsActive.HasValue, x => x.IsActive == true)
-                                      .WhereIf(!input.IsDeleted.HasValue, x => x.IsDeleted == false)
+                                      .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive)
+                                      .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted)
                                       .ToList();
 
             var value = ObjectMapper.Map<List<ArticleDto>>(articles);

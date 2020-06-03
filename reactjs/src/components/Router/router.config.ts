@@ -95,33 +95,43 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/Exception')),
   },
   {
-    path:'/categories',
-    permission:'',
-    title:L('Categories'),
-    name:'categories',
+    path: '/categories',
+    permission: '',
+    title: L('Categories'),
+    name: 'categories',
     icon: 'bars',
     showInMenu: true,
-    component:LoadableComponent(()=>import('../../scenes/Category')),
+    component: LoadableComponent(() => import('../../scenes/Category')),
 
   },
   {
-    path:'/tags',
-    permission:'',
-    title:L('Tags'),
-    name:'tags',
+    path: '/tags',
+    permission: '',
+    title: L('Tags'),
+    name: 'tags',
     icon: 'tag',
     showInMenu: true,
-    component:LoadableComponent(()=>import('../../scenes/Tag')),
+    component: LoadableComponent(() => import('../../scenes/Tag')),
 
   },
   {
-    path:'/authors',
-    permission:'',
-    title:L('Authors'),
-    name:'authors',
+    path: '/authors',
+    permission: '',
+    title: L('Authors'),
+    name: 'authors',
     icon: 'user',
     showInMenu: true,
-    component:LoadableComponent(()=>import('../../scenes/Author')),
+    component: LoadableComponent(() => import('../../scenes/Author')),
+
+  },
+  {
+    path: '/articles',
+    permission: '',
+    title: L('Articles'),
+    name: 'articles',
+    icon: 'book',
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/Article')),
 
   }
 ];

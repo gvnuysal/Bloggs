@@ -8,4 +8,5 @@ export default class Stores {
   static CategoryStore: string = 'categoryStore';
   static TagStore: string = 'tagStore';
   static AuthorStore: string = 'authorStore';
+  static ArticleStore: string = 'articleStore';
 }
