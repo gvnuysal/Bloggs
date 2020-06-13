@@ -33,6 +33,7 @@ namespace Bloggs.Articles
                                       .WhereIf(input.CategoryId > 0, x => x.CategoryId == input.CategoryId)
                                       .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive)
                                       .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted)
+                                      .Skip(input.SkipCount).Take(input.MaxResultCount)
                                       .ToList();
 
             var value = ObjectMapper.Map<List<ArticleDto>>(articles);

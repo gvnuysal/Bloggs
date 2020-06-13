@@ -61,6 +61,7 @@ namespace Bloggs.Authors
                                      .WhereIf(input.UserId > 0, x => x.UserId.ToString() == input.UserId.ToString().Trim())
                                      .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted)
                                      .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive)
+                                     .Skip(input.SkipCount).Take(input.MaxResultCount)
                                      .ToList();
 
             var value = ObjectMapper.Map<List<AuthorDto>>(authors);

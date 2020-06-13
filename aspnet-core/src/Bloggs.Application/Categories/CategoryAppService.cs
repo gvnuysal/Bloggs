@@ -26,7 +26,8 @@ namespace Bloggs.Categories
                              .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.Name.ToLower().Contains(input.Keyword.Trim().ToLower()) ||
                                                                                 x.Description.ToLower().Contains(input.Keyword.Trim().ToLower()))
                              .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive)
-                             .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted);
+                             .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted)
+                             .Skip(input.SkipCount).Take(input.MaxResultCount);
         }
         public override async Task DeleteAsync(DeleteCategoryDto input)
         {

@@ -26,7 +26,9 @@ namespace Bloggs.ArticleTags
                                      .Include(x => x.Article.Author.User)
                                      .WhereIf(input.ArticleId > 0, x => x.ArticleId == input.ArticleId)
                                      .WhereIf(!input.IsDeleted.HasValue, x => x.IsDeleted == false)
-                                     .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted).ToList();
+                                     .WhereIf(input.IsDeleted.HasValue, x => x.IsDeleted == input.IsDeleted)
+                                     .Skip(input.SkipCount).Take(input.MaxResultCount)
+                                     .ToList();
 
             var value = ObjectMapper.Map<List<ArticleTagDto>>(articleFollows);
 
